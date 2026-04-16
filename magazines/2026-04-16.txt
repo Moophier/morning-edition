@@ -1,0 +1,60 @@
+============================================================
+MORNING EDITION
+Curated from Hacker News — 2026-04-16
+============================================================
+
+--- Story 01 ---
+[* FOR YOU] Google broke its promise to me – now ICE has my data
+URL: https://www.eff.org/deeplinks/2026/04/google-broke-its-promise-me-now-ice-has-my-data
+Source: eff.org | 1218 pts | 537 comments | by Brajeshwar
+
+--- Story 02 ---
+[* FOR YOU] Anna's Archive loses $322M Spotify piracy case without a fight
+URL: https://torrentfreak.com/annas-archive-loses-322-million-spotify-piracy-case-without-a-fight/
+Source: torrentfreak.com | 358 pts | 385 comments | by askl
+
+--- Story 03 ---
+[* FOR YOU] God sleeps in the minerals
+URL: https://wchambliss.wordpress.com/2026/03/03/god-sleeps-in-the-minerals/
+Source: wchambliss.wordpress.com | 479 pts | 99 comments | by speckx
+
+--- Story 04 ---
+[* FOR YOU] Live Nation illegally monopolized ticketing market, jury finds
+URL: https://www.bloomberg.com/news/articles/2026-04-15/live-nation-illegally-monopolized-ticketing-market-jury-finds
+Source: bloomberg.com | 455 pts | 129 comments | by Alex_Bond
+
+--- Story 05 ---
+[* FOR YOU] Cybersecurity looks like proof of work now
+URL: https://www.dbreunig.com/2026/04/14/cybersecurity-is-proof-of-work-now.html
+Source: dbreunig.com | 297 pts | 107 comments | by dbreunig
+Tags: security
+
+--- Story 06 ---
+[* FOR YOU] Ask HN: Who is using OpenClaw?
+URL: https://news.ycombinator.com/item?id=47783940
+Source: news.ycombinator.com | 238 pts | 286 comments | by misterchocolat
+
+--- Story 07 ---
+[* FOR YOU] Cal.com is going closed source
+URL: https://cal.com/blog/cal-com-goes-closed-source-why
+Source: cal.com | 239 pts | 178 comments | by Benjamin_Dobell
+
+--- Story 08 ---
+[* FOR YOU] The buns in McDonald's Japan's burger photos are all slightly askew
+URL: https://www.mcdonalds.co.jp/en/menu/burger/
+Source: mcdonalds.co.jp | 255 pts | 145 comments | by bckygldstn
+
+--- Story 09 ---
+[* FOR YOU] YouTube users get option to set their Shorts time limit to zero minutes
+URL: https://www.theverge.com/streaming/912898/youtube-shorts-feed-limit-zero-minutes
+Source: theverge.com | 231 pts | 100 comments | by pentagrama
+
+--- Story 10 ---
+[* FOR YOU] US v. Heppner (S.D.N.Y. 2026) no attorney-client privilege for AI chats [pdf]
+URL: https://fingfx.thomsonreuters.com/gfx/legaldocs/xmvjyjekkpr/Rakoff%20-%20order%20-%20AI.pdf
+Source: fingfx.thomsonreuters.com | 94 pts | 83 comments | by 1vuio0pswjnm7
+Tags: ai, cli
+
+============================================================
+That's all for today.
+============================================================
