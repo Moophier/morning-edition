@@ -5,6 +5,13 @@ from typing import List, Optional
 
 load_dotenv()
 
+os.environ.setdefault("ENABLE_BACKEND_ACCESS_CONTROL", "false")
+
+import cognee
+
+cognee.config.set_vector_db_provider("lancedb")
+cognee.config.set_graph_database_provider("lancedb")
+
 
 class CogneeMemory:
     def __init__(self, api_url: str = "http://localhost:8000"):
