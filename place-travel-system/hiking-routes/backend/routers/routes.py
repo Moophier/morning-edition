@@ -135,9 +135,13 @@ async def create_route(
     user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    slug = slugify(data.name)
+    slug_exists = await db.execute(select(Route).where(Route.slug == slug))
+    if slug_exists.scalar_one_or_none():
+        slug = f"{slug}-{uuid.uuid4().hex[:6]}"
     route = Route(
         id=str(uuid.uuid4()),
-        slug=slugify(data.name),
+        slug=slug,
         name=data.name,
         description=data.description,
         difficulty=data.difficulty,
@@ -190,7 +194,13 @@ async def update_route(
 
     for field, value in data.model_dump(exclude={"tag_ids"}).items():
         setattr(route, field, value)
-    route.slug = slugify(data.name)
+    new_slug = slugify(data.name)
+    slug_exists = await db.execute(
+        select(Route).where(Route.slug == new_slug, Route.id != route.id)
+    )
+    if slug_exists.scalar_one_or_none():
+        new_slug = f"{new_slug}-{uuid.uuid4().hex[:6]}"
+    route.slug = new_slug
 
     if data.tag_ids is not None:
         tag_result = await db.execute(select(Tag).where(Tag.id.in_(data.tag_ids)))
