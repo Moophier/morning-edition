@@ -1,0 +1,601 @@
+# Instincts generated from https://github.com/Moophier/morning-edition
+# Generated: 2026-08-01T11:39:20.151Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: morning-edition-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: feat, fix, docs, chore, test
+
+## Evidence
+
+- 23 commits analyzed
+- Detected conventional commit pattern
+- Examples: docs: add hiking world routes MVP design spec, chore: add cognee dependencies and env template
+
+---
+id: morning-edition-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Commit Length
+
+## Action
+
+Write moderate-length commit messages (~54 characters)
+
+## Evidence
+
+- Average commit message length: 54 chars
+- Based on 23 commits
+
+---
+id: morning-edition-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: morning-edition-import-alias
+trigger: "when importing modules"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Import Alias
+
+## Action
+
+Use path aliases (@/, ~/) instead of relative imports
+
+## Evidence
+
+- Import analysis shows alias pattern
+- Example: import { x } from '@/lib/x'
+
+---
+id: morning-edition-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Export Style
+
+## Action
+
+Prefer default exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: default
+
+---
+id: morning-edition-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: morning-edition-test-naming
+trigger: "when creating a test file"
+confidence: 0.85
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Test Naming
+
+## Action
+
+Name test files using the pattern: *.test.ts
+
+## Evidence
+
+- File pattern: *.test.ts
+- Consistent across test files
+
+---
+id: morning-edition-workflow-feature-development
+trigger: "when implementing a new feature"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Workflow Feature Development
+
+## Action
+
+Follow the feature-development workflow:
+1. Add feature implementation
+2. Add tests for feature
+3. Update documentation
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~26x per month
+- Files: place-travel-system/hiking-routes/frontend/app/*, place-travel-system/hiking-routes/frontend/components/*, place-travel-system/hiking-routes/frontend/*
+
+---
+id: morning-edition-workflow-add-design-spec-and-implementation-plan
+trigger: "when doing add design spec and implementation plan"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Workflow Add Design Spec And Implementation Plan
+
+## Action
+
+Follow the add-design-spec-and-implementation-plan workflow:
+1. Create a design spec markdown file in docs/superpowers/specs/
+2. Optionally, create a corresponding implementation plan markdown file in docs/superpowers/plans/
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: docs/superpowers/specs/*.md, docs/superpowers/plans/*.md
+
+---
+id: morning-edition-workflow-feature-implementation-with-tests
+trigger: "when doing feature implementation with tests"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Workflow Feature Implementation With Tests
+
+## Action
+
+Follow the feature-implementation-with-tests workflow:
+1. Add or update implementation file (e.g., *.py)
+2. Add or update corresponding test file in tests/
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: *.py, tests/*.py
+
+---
+id: morning-edition-workflow-scaffold-project-or-module
+trigger: "when doing scaffold project or module"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Workflow Scaffold Project Or Module
+
+## Action
+
+Follow the scaffold-project-or-module workflow:
+1. Add config and requirements files
+2. Add initial code files (models, database, main entrypoints)
+3. Add initial README or documentation
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: */backend/config.py, */backend/requirements.txt, */backend/models.py
+
+---
+id: morning-edition-workflow-add-frontend-page-or-component
+trigger: "when doing add frontend page or component"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Workflow Add Frontend Page Or Component
+
+## Action
+
+Follow the add-frontend-page-or-component workflow:
+1. Create new page/component file under frontend/app/ or frontend/components/
+2. Update components/index.ts if needed
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: */frontend/app/**/*.tsx, */frontend/components/*.tsx, */frontend/components/index.ts
+
+---
+id: morning-edition-workflow-fix-or-enhance-existing-feature
+trigger: "when doing fix or enhance existing feature"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/Moophier/morning-edition
+---
+
+# Morning Edition Workflow Fix Or Enhance Existing Feature
+
+## Action
+
+Follow the fix-or-enhance-existing-feature workflow:
+1. Update implementation file(s)
+2. Update or add test file(s) as needed
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: *.py, */backend/routers/*.py, */backend/tests/*.py
+
+---
+id: morning-edition-camelcase-filenames
+trigger: "When creating or renaming a file in the codebase"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Camelcase Filenames
+
+## Action
+
+Use camelCase for file names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.files
+- Observed in src and component files
+
+---
+id: morning-edition-camelcase-functions
+trigger: "When defining a function"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Camelcase Functions
+
+## Action
+
+Use camelCase for function names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.functions
+
+---
+id: morning-edition-pascalcase-classes
+trigger: "When defining a class"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Pascalcase Classes
+
+## Action
+
+Use PascalCase for class names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.classes
+
+---
+id: morning-edition-screaming-snake-constants
+trigger: "When defining a constant"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Screaming Snake Constants
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for constant names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.constants
+
+---
+id: morning-edition-alias-imports
+trigger: "When importing modules"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Alias Imports
+
+## Action
+
+Use alias import style
+
+## Evidence
+
+- Pattern in codeStyle.importStyle
+
+---
+id: morning-edition-default-exports
+trigger: "When exporting modules or components"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Default Exports
+
+## Action
+
+Use default export style
+
+## Evidence
+
+- Pattern in codeStyle.exportStyle
+
+---
+id: morning-edition-test-file-pattern
+trigger: "When creating a test file for frontend code"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Test File Pattern
+
+## Action
+
+Name the file with the pattern *.test.ts
+
+## Evidence
+
+- Pattern in testing.filePattern
+- Seen in place-travel-system/hiking-routes/frontend/components/*.test.ts
+
+---
+id: morning-edition-unit-tests
+trigger: "When writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Unit Tests
+
+## Action
+
+Write unit tests for new features and bug fixes
+
+## Evidence
+
+- Pattern in testing.testTypes
+- Commits like 'test: add tests for cognee memory and vault sync'
+
+---
+id: morning-edition-backend-tests-location
+trigger: "When adding tests for backend Python code"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Backend Tests Location
+
+## Action
+
+Place test files in the tests/ directory
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation
+- Workflow 'feature-implementation-with-tests'
+
+---
+id: morning-edition-conventional-commits
+trigger: "When writing a commit message"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Conventional Commits
+
+## Action
+
+Use the conventional commit format: <type>: <description>
+
+## Evidence
+
+- Pattern in commits.type and prefixes
+- Examples like 'feat: add CogneeMemory integration class'
+
+---
+id: morning-edition-commit-length
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Commit Length
+
+## Action
+
+Keep the commit message around 54 characters on average
+
+## Evidence
+
+- Pattern in commits.averageLength
+
+---
+id: morning-edition-design-spec-workflow
+trigger: "When proposing or planning a new feature or system"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Design Spec Workflow
+
+## Action
+
+Create a design spec markdown file in docs/superpowers/specs/ and optionally an implementation plan in docs/superpowers/plans/
+
+## Evidence
+
+- Workflow 'add-design-spec-and-implementation-plan'
+- Commits like 'docs: add hiking world routes MVP design spec'
+
+---
+id: morning-edition-feature-implementation-with-tests
+trigger: "When adding a new backend feature or integration"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Feature Implementation With Tests
+
+## Action
+
+Add or update implementation file (*.py) and add or update corresponding test file in tests/
+
+## Evidence
+
+- Workflow 'feature-implementation-with-tests'
+- Commits like 'feat: add CogneeMemory integration class' and 'test: add tests for cognee memory and vault sync'
+
+---
+id: morning-edition-scaffold-project
+trigger: "When starting a new project or major module"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Scaffold Project
+
+## Action
+
+Add config and requirements files, initial code files, and initial README or documentation
+
+## Evidence
+
+- Workflow 'scaffold-project-or-module'
+- Pattern in files like '*/backend/config.py', '*/frontend/package.json'
+
+---
+id: morning-edition-add-frontend-component
+trigger: "When adding new UI functionality or views"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Add Frontend Component
+
+## Action
+
+Create new page/component file under frontend/app/ or frontend/components/, and update components/index.ts if needed
+
+## Evidence
+
+- Workflow 'add-frontend-page-or-component'
+- Pattern in files '*/frontend/app/**/*.tsx', '*/frontend/components/*.tsx'
+
+---
+id: morning-edition-fix-or-enhance-feature
+trigger: "When fixing a bug or improving an existing feature"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: Moophier/morning-edition
+---
+
+# Morning Edition Fix Or Enhance Feature
+
+## Action
+
+Update implementation file(s) and update or add test file(s) as needed
+
+## Evidence
+
+- Workflow 'fix-or-enhance-existing-feature'
+- Commits like 'fix: use lancedb provider for cognee memory'
+
