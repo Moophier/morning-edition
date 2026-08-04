@@ -1,0 +1,3 @@
+name = "food-analyzer-mcp"
+main = "src/index.ts"
+compatibility_date = "2025-08-01"
