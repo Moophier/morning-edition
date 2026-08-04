@@ -1,0 +1,18 @@
+.ivy-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+
+.ivy-dashboard-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+@media (max-width: 600px) {
+    .ivy-dashboard {
+        grid-template-columns: 1fr;
+    }
+}

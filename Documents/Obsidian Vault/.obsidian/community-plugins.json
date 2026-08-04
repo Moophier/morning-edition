@@ -1,4 +1,16 @@
 [
   "obsidian-git",
-  "copilot"
+  "copilot",
+  "calendar",
+  "columns",
+  "dataview",
+  "editing-toolbar",
+  "excalidraw",
+  "homepage",
+  "kanban",
+  "minimal-settings",
+  "style-settings",
+  "tasks",
+  "tasks-calendar-wrapper",
+  "templater"
 ]
