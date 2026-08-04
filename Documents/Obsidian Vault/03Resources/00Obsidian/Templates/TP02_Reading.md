@@ -1,11 +1,13 @@
-# <% tp.date.now("YYYY-MM-DD") %>
+---
+Author: 
+Status: Reading
+Rating: 
+Category: 
+---
 
-## Tasks
-- [ ] 
+# Reading Note: <% tp.file.title %>
 
-## Habit Tracker
-- [ ] Habit: Reading
-- [ ] Habit: Exercise
+## Summary
+ 
 
-## Daily Log
-""",filePath:
+## Highlights/Notes
