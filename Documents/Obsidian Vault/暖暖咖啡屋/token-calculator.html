@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☕ Token咖啡馆 - AI计价器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C9 100%);
+            min-height: 100vh;
+            color: #5D4037;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #D4A574 0%, #C4956A 100%);
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(139, 90, 43, 0.2);
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Card */
+        .card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 28px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(139, 90, 43, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 40px rgba(212, 165, 116, 0.25);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: #8B5A2B;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px dashed #E8D4C4;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, #D4A574 0%, #C4956A 100%);
+            border-radius: 50%;
+        }
+
+        /* Grid */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8B5A2B;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        textarea, input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E8D4C4;
+            border-radius: 16px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #FFFBF7;
+            color: #5D4037;
+        }
+
+        textarea:focus, input:focus, select:focus {
+            outline: none;
+            border-color: #D4A574;
+            box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.2);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+            border-radius: 16px;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #D4A574 0%, #C4956A 100%);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 165, 116, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button.secondary {
+            background: linear-gradient(135deg, #E8D4C4 0%, #DCC8B4 100%);
+            color: #8B5A2B;
+        }
+
+        button.secondary:hover {
+            box-shadow: 0 8px 25px rgba(232, 212, 196, 0.4);
+        }
+
+        /* Result */
+        .result {
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFF5EB 100%);
+            border-left: 5px solid #D4A574;
+            padding: 18px;
+            margin-top: 18px;
+            border-radius: 0 20px 20px 0;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #E8D4C4;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: #8B7B6A;
+            font-size: 0.95rem;
+        }
+
+        .result-value {
+            font-weight: bold;
+            color: #C4956A;
+            font-size: 1.1rem;
+        }
+
+        .result-value.highlight {
+            color: #D4A574;
+            font-size: 1.3rem;
+        }
+
+        /* Token Display */
+        .token-display {
+            background: #FFFBF7;
+            padding: 15px;
+            border-radius: 16px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            max-height: 180px;
+            overflow-y: auto;
+            border: 2px dashed #E8D4C4;
+        }
+
+        .token-display code {
+            background: #F5E6D3;
+            padding: 3px 8px;
+            border-radius: 8px;
+            margin: 3px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, #FFF8F0 0%, #FFF5EB 100%);
+            padding: 20px;
+            text-align: center;
+            border-radius: 20px;
+            border: 2px solid #E8D4C4;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #D4A574;
+            transform: translateY(-3px);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #C4956A;
+            display: block;
+        }
+
+        .stat-label {
+            color: #8B7B6A;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        /* Error */
+        .error {
+            background: #FFF5F5;
+            border-left: 5px solid #E57373;
+            color: #C62828;
+            padding: 18px;
+            margin-top: 15px;
+            border-radius: 0 20px 20px 0;
+        }
+
+        .error h3 {
+            margin-bottom: 8px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #D4A574 0%, #C4956A 100%);
+            color: #fff;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1rem;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+            box-shadow: 0 8px 30px rgba(212, 165, 116, 0.4);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #FFF8F0;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D4A574;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C4956A;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>☕ Token咖啡馆</h1>
+        <p>AI模型计价器 · 每一Token都是好味道</p>
+    </header>
+
+    <main class="container">
+        <div class="calculator-grid">
+            <!-- AI Token Calculator -->
+            <div class="card">
+                <h2 class="card-title">🤖 AI Token 计算</h2>
+                <div class="form-group">
+                    <label for="ai-text">输入文本:</label>
+                    <textarea id="ai-text" placeholder="输入要计算的文本...">Hello, how are you today?</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="ai-model">选择模型:</label>
+                    <select id="ai-model">
+                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                        <option value="gpt-4">GPT-4</option>
+                        <option value="claude-3">Claude 3</option>
+                        <option value="gemini-pro">Gemini Pro</option>
+                    </select>
+                </div>
+                <div class="btn-group">
+                    <button onclick="calculateAITokens()">计算Token</button>
+                    <button class="secondary" onclick="calculateAICost()">计算费用</button>
+                </div>
+                <div id="ai-result"></div>
+            </div>
+
+            <!-- Math Tokenizer -->
+            <div class="card">
+                <h2 class="card-title">🧮 数学表达式</h2>
+                <div class="form-group">
+                    <label for="math-expression">表达式:</label>
+                    <input type="text" id="math-expression" value="((1 + 20) * -3.14) / 9" placeholder="输入数学表达式...">
+                </div>
+                <div class="btn-group">
+                    <button onclick="tokenizeMath()">分词</button>
+                    <button class="secondary" onclick="evaluateMath()">求值</button>
+                    <button class="secondary" onclick="convertToRPN()">转RPN</button>
+                </div>
+                <div id="math-result"></div>
+                <div id="math-tokens" class="token-display" style="display: none;"></div>
+            </div>
+
+            <!-- General Counter -->
+            <div class="card">
+                <h2 class="card-title">📝 通用计数</h2>
+                <div class="form-group">
+                    <label for="general-text">文本内容:</label>
+                    <textarea id="general-text" placeholder="输入任意文本...">The quick brown fox jumps over the lazy dog.</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="token-type">计数类型:</label>
+                    <select id="token-type">
+                        <option value="words">单词数</option>
+                        <option value="characters">字符数</option>
+                        <option value="sentences">句子数</option>
+                        <option value="lines">行数</option>
+                    </select>
+                </div>
+                <div class="btn-group">
+                    <button onclick="countGeneralTokens()">计数</button>
+                </div>
+                <div id="general-result"></div>
+            </div>
+
+            <!-- Chat Token Calculator -->
+            <div class="card">
+                <h2 class="card-title">💬 对话Token</h2>
+                <div class="form-group">
+                    <label for="chat-messages">对话消息 (JSON):</label>
+                    <textarea id="chat-messages" placeholder='[{"role": "user", "content": "你好!"}]'>[{"role": "user", "content": "你好!"}, {"role": "assistant", "content": "你好！有什么可以帮助你的吗？"}, {"role": "user", "content": "今天天气怎么样？"}]</textarea>
+                </div>
+                <div class="btn-group">
+                    <button onclick="calculateChatTokens()">计算对话Token</button>
+                </div>
+                <div id="chat-result"></div>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="card">
+            <h2 class="card-title">📊 统计概览</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value" id="total-tokens">0</span>
+                    <div class="stat-label">总Token数</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="total-cost">$0</span>
+                    <div class="stat-label">总费用</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="expressions">0</span>
+                    <div class="stat-label">表达式数</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="calculations">0</span>
+                    <div class="stat-label">计算次数</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        let stats = {
+            totalTokens: 0,
+            totalCost: 0,
+            expressions: 0,
+            calculations: 0
+        };
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        function calculateAITokens() {
+            const text = document.getElementById('ai-text').value;
+            const model = document.getElementById('ai-model').value;
+            const tokenEstimate = Math.ceil(text.length / 4);
+            
+            const resultDiv = document.getElementById('ai-result');
+            resultDiv.innerHTML = `
+                <div class="result">
+                    <div class="result-item">
+                        <span class="result-label">模型:</span>
+                        <span class="result-value">${model}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">预估Token:</span>
+                        <span class="result-value highlight">${tokenEstimate}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">字符数:</span>
+                        <span class="result-value">${text.length}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">单词数:</span>
+                        <span class="result-value">${text.split(/\s+/).filter(w => w.length > 0).length}</span>
+                    </div>
+                </div>
+            `;
+            
+            updateStats('tokens', tokenEstimate);
+            updateStats('expressions', 1);
+            showToast('计算完成！');
+        }
+
+        function calculateAICost() {
+            const text = document.getElementById('ai-text').value;
+            const model = document.getElementById('ai-model').value;
+            
+            const pricing = {
+                'gpt-3.5-turbo': { input: 0.0015, output: 0.002 },
+                'gpt-4': { input: 0.03, output: 0.06 },
+                'claude-3': { input: 0.015, output: 0.075 },
+                'gemini-pro': { input: 0.0005, output: 0.0015 }
+            };
+            
+            const tokenEstimate = Math.ceil(text.length / 4);
+            const price = pricing[model];
+            const inputCost = (tokenEstimate / 1000) * price.input;
+            const outputCost = (tokenEstimate / 1000) * price.output;
+            const totalCost = inputCost + outputCost;
+            
+            const resultDiv = document.getElementById('ai-result');
+            resultDiv.innerHTML = `
+                <div class="result">
+                    <div class="result-item">
+                        <span class="result-label">Token数:</span>
+                        <span class="result-value">${tokenEstimate}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">输入费用:</span>
+                        <span class="result-value">$${inputCost.toFixed(6)}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">输出费用:</span>
+                        <span class="result-value">$${outputCost.toFixed(6)}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">总费用:</span>
+                        <span class="result-value highlight">$${totalCost.toFixed(6)}</span>
+                    </div>
+                </div>
+            `;
+            
+            updateStats('cost', totalCost);
+            updateStats('calculations', 1);
+            showToast('费用计算完成！');
+        }
+
+        function tokenizeMath() {
+            const expression = document.getElementById('math-expression').value;
+            const tokens = tokenizeMathExpression(expression);
+            
+            const resultDiv = document.getElementById('math-result');
+            resultDiv.innerHTML = `
+                <div class="result">
+                    <div class="result-item">
+                        <span class="result-label">总Token数:</span>
+                        <span class="result-value highlight">${tokens.length}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">数字:</span>
+                        <span class="result-value">${tokens.filter(t => t.type === 'NUMBER').length}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">运算符:</span>
+                        <span class="result-value">${tokens.filter(t => t.type === 'OPERATOR').length}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">括号:</span>
+                        <span class="result-value">${tokens.filter(t => t.type === 'PAREN_OPEN' || t.type === 'PAREN_CLOSE').length}</span>
+                    </div>
+                </div>
+            `;
+            
+            const tokensDiv = document.getElementById('math-tokens');
+            tokensDiv.style.display = 'block';
+            tokensDiv.innerHTML = tokens.map(t => `<code>[${t.type}: ${t.value}]</code>`).join('');
+            
+            updateStats('tokens', tokens.length);
+            updateStats('expressions', 1);
+            showToast('分词完成！');
+        }
+
+        function tokenizeMathExpression(expression) {
+            const tokens = [];
+            let currentNumber = '';
+            
+            for (let i = 0; i < expression.length; i++) {
+                const char = expression[i];
+                
+                if (/\s/.test(char)) continue;
+                
+                if (/[0-9.]/.test(char)) {
+                    currentNumber += char;
+                } else {
+                    if (currentNumber) {
+                        tokens.push({ type: 'NUMBER', value: parseFloat(currentNumber) });
+                        currentNumber = '';
+                    }
+                    
+                    if (/[+\-*/^]/.test(char)) {
+                        tokens.push({ type: 'OPERATOR', value: char });
+                    } else if (char === '(') {
+                        tokens.push({ type: 'PAREN_OPEN', value: char });
+                    } else if (char === ')') {
+                        tokens.push({ type: 'PAREN_CLOSE', value: char });
+                    }
+                }
+            }
+            
+            if (currentNumber) {
+                tokens.push({ type: 'NUMBER', value: parseFloat(currentNumber) });
+            }
+            
+            return tokens;
+        }
+
+        function evaluateMath() {
+            const expression = document.getElementById('math-expression').value;
+            try {
+                const result = Function('"use strict"; return (' + expression + ')')();
+                const resultDiv = document.getElementById('math-result');
+                resultDiv.innerHTML = `
+                    <div class="result">
+                        <div class="result-item">
+                            <span class="result-label">表达式:</span>
+                            <span class="result-value">${expression}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">计算结果:</span>
+                            <span class="result-value highlight">${result}</span>
+                        </div>
+                    </div>
+                `;
+                updateStats('calculations', 1);
+                showToast('计算完成！');
+            } catch (error) {
+                const resultDiv = document.getElementById('math-result');
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>计算错误</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function convertToRPN() {
+            const expression = document.getElementById('math-expression').value;
+            const tokens = tokenizeMathExpression(expression);
+            const rpn = infixToRPN(tokens);
+            
+            const resultDiv = document.getElementById('math-result');
+            resultDiv.innerHTML = `
+                <div class="result">
+                    <div class="result-item">
+                        <span class="result-label">中缀表达式:</span>
+                        <span class="result-value">${expression}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">逆波兰表达式:</span>
+                        <span class="result-value highlight">${rpn.join(' ')}</span>
+                    </div>
+                </div>
+            `;
+            
+            updateStats('calculations', 1);
+            showToast('RPN转换完成！');
+        }
+
+        function infixToRPN(tokens) {
+            const output = [];
+            const operators = [];
+            
+            for (const token of tokens) {
+                switch (token.type) {
+                    case 'NUMBER':
+                        output.push(token.value.toString());
+                        break;
+                    case 'OPERATOR':
+                        while (operators.length > 0 && 
+                               operators[operators.length - 1] !== '(' &&
+                               getPrecedence(operators[operators.length - 1]) >= getPrecedence(token.value)) {
+                            output.push(operators.pop());
+                        }
+                        operators.push(token.value);
+                        break;
+                    case 'PAREN_OPEN':
+                        operators.push(token.value);
+                        break;
+                    case 'PAREN_CLOSE':
+                        while (operators.length > 0 && operators[operators.length - 1] !== '(') {
+                            output.push(operators.pop());
+                        }
+                        if (operators.length > 0 && operators[operators.length - 1] === '(') {
+                            operators.pop();
+                        }
+                        break;
+                }
+            }
+            
+            while (operators.length > 0) {
+                output.push(operators.pop());
+            }
+            
+            return output;
+        }
+
+        function getPrecedence(operator) {
+            switch (operator) {
+                case '+':
+                case '-':
+                    return 1;
+                case '*':
+                case '/':
+                    return 2;
+                case '^':
+                    return 3;
+                default:
+                    return 0;
+            }
+        }
+
+        function countGeneralTokens() {
+            const text = document.getElementById('general-text').value;
+            const tokenType = document.getElementById('token-type').value;
+            
+            let count = 0;
+            switch (tokenType) {
+                case 'words':
+                    count = text.split(/\s+/).filter(w => w.length > 0).length;
+                    break;
+                case 'characters':
+                    count = text.length;
+                    break;
+                case 'sentences':
+                    count = text.split(/[.!?。！？]+/).filter(s => s.trim().length > 0).length;
+                    break;
+                case 'lines':
+                    count = text.split(/\n/).length;
+                    break;
+            }
+            
+            const resultDiv = document.getElementById('general-result');
+            resultDiv.innerHTML = `
+                <div class="result">
+                    <div class="result-item">
+                        <span class="result-label">计数类型:</span>
+                        <span class="result-value">${tokenType === 'words' ? '单词' : tokenType === 'characters' ? '字符' : tokenType === 'sentences' ? '句子' : '行'}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">数量:</span>
+                        <span class="result-value highlight">${count}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">字符数:</span>
+                        <span class="result-value">${text.length}</span>
+                    </div>
+                </div>
+            `;
+            
+            updateStats('tokens', count);
+            updateStats('expressions', 1);
+            showToast('计数完成！');
+        }
+
+        function calculateChatTokens() {
+            const messagesText = document.getElementById('chat-messages').value;
+            let messages;
+            
+            try {
+                messages = JSON.parse(messagesText);
+            } catch (error) {
+                const resultDiv = document.getElementById('chat-result');
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>JSON格式错误</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let totalTokens = 0;
+            const tokenDetails = [];
+            
+            for (const message of messages) {
+                const messageText = JSON.stringify(message);
+                const tokens = Math.ceil(messageText.length / 4);
+                totalTokens += tokens;
+                tokenDetails.push({
+                    role: message.role,
+                    content: message.content,
+                    tokens: tokens
+                });
+            }
+            
+            const roleNames = { user: '用户', assistant: '助手', system: '系统' };
+            const resultDiv = document.getElementById('chat-result');
+            resultDiv.innerHTML = `
+                <div class="result">
+                    <div class="result-item">
+                        <span class="result-label">消息数:</span>
+                        <span class="result-value">${messages.length}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">总Token:</span>
+                        <span class="result-value highlight">${totalTokens}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">平均每条:</span>
+                        <span class="result-value">${Math.round(totalTokens / messages.length)}</span>
+                    </div>
+                </div>
+                <div class="token-display">
+                    ${tokenDetails.map(d => `<code>${roleNames[d.role] || d.role}: ${d.tokens} tokens</code>`).join('')}
+                </div>
+            `;
+            
+            updateStats('tokens', totalTokens);
+            updateStats('expressions', 1);
+            showToast('对话Token计算完成！');
+        }
+
+        function updateStats(type, value) {
+            switch (type) {
+                case 'tokens':
+                    stats.totalTokens += value;
+                    document.getElementById('total-tokens').textContent = stats.totalTokens;
+                    break;
+                case 'cost':
+                    stats.totalCost += value;
+                    document.getElementById('total-cost').textContent = '$' + stats.totalCost.toFixed(4);
+                    break;
+                case 'expressions':
+                    stats.expressions += value;
+                    document.getElementById('expressions').textContent = stats.expressions;
+                    break;
+                case 'calculations':
+                    stats.calculations += value;
+                    document.getElementById('calculations').textContent = stats.calculations;
+                    break;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateAITokens();
+            countGeneralTokens();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暖暖咖啡屋 - Cozy Coffee Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C9 100%);
+            min-height: 100vh;
+            color: #5D4037;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #D4A574 0%, #C4956A 100%);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(139, 90, 43, 0.2);
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            background: #fff;
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(139, 90, 43, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: #8B5A2B;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px dashed #E8D4C4;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #D4A574;
+            border-radius: 50%;
+        }
+
+        /* Coffee Grid */
+        .coffee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* Coffee Card */
+        .coffee-card {
+            background: linear-gradient(145deg, #FFFDF9 0%, #FFF8F0 100%);
+            border-radius: 20px;
+            padding: 20px;
+            border: 2px solid #F5E6D3;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coffee-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(212, 165, 116, 0.3);
+            border-color: #D4A574;
+        }
+
+        .coffee-card.selected {
+            border-color: #C4956A;
+            background: linear-gradient(145deg, #FFF0E5 0%, #FFE8D9 100%);
+            box-shadow: 0 8px 25px rgba(212, 165, 116, 0.4);
+        }
+
+        .coffee-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 28px;
+            height: 28px;
+            background: #C4956A;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .coffee-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .coffee-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #5D4037;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .coffee-desc {
+            font-size: 0.85rem;
+            color: #8D7B6A;
+            text-align: center;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .coffee-price {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #C4956A;
+        }
+
+        .coffee-price::before {
+            content: '¥';
+            font-size: 0.9rem;
+            margin-right: 2px;
+        }
+
+        /* Size Options */
+        .size-options {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .size-btn {
+            padding: 6px 14px;
+            border: 2px solid #E8D4C4;
+            background: #fff;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #8D7B6A;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .size-btn:hover {
+            border-color: #D4A574;
+            color: #C4956A;
+        }
+
+        .size-btn.active {
+            background: #D4A574;
+            border-color: #D4A574;
+            color: #fff;
+        }
+
+        /* Cart Section */
+        .cart-section {
+            background: linear-gradient(135deg, #C4956A 0%, #B8875A 100%);
+            border-radius: 24px;
+            padding: 25px;
+            color: #fff;
+            position: sticky;
+            bottom: 20px;
+            box-shadow: 0 -4px 30px rgba(139, 90, 43, 0.3);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .cart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .cart-count {
+            background: rgba(255,255,255,0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .cart-items {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-size: 0.95rem;
+        }
+
+        .item-price {
+            font-weight: 600;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 30px;
+            opacity: 0.8;
+        }
+
+        .cart-empty::before {
+            content: '☕';
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .cart-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .total-label {
+            font-size: 1rem;
+        }
+
+        .total-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .order-btn {
+            background: #fff;
+            color: #C4956A;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .order-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .order-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Sweetness Level */
+        .sweetness-section {
+            margin-top: 15px;
+        }
+
+        .sweetness-title {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .sweetness-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .sweetness-btn {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 15px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .sweetness-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .sweetness-btn.active {
+            background: #fff;
+            color: #C4956A;
+            border-color: #fff;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            animation: popIn 0.4s ease;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #5D4037;
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            color: #8D7B6A;
+            margin-bottom: 25px;
+        }
+
+        .modal-btn {
+            background: linear-gradient(135deg, #D4A574 0%, #C4956A 100%);
+            color: #fff;
+            border: none;
+            padding: 15px 50px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #5D4037;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>☕ 暖暖咖啡屋</h1>
+        <p>每一杯都是温暖的味道</p>
+    </header>
+
+    <main class="container">
+        <section class="menu-section">
+            <h2 class="section-title">今日特调</h2>
+            <div class="coffee-grid" id="coffeeGrid"></div>
+        </section>
+
+        <section class="cart-section">
+            <div class="cart-header">
+                <span class="cart-title">🛒 我的订单</span>
+                <span class="cart-count" id="cartCount">0 件</span>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <div class="cart-empty">点击上方咖啡添加</div>
+            </div>
+            <div class="sweetness-section">
+                <div class="sweetness-title">甜度偏好</div>
+                <div class="sweetness-options">
+                    <button class="sweetness-btn active" data-level="正常">正常糖</button>
+                    <button class="sweetness-btn" data-level="少糖">少糖</button>
+                    <button class="sweetness-btn" data-level="无糖">无糖</button>
+                </div>
+            </div>
+            <div class="cart-footer">
+                <div>
+                    <div class="total-label">合计</div>
+                    <div class="total-price" id="totalPrice">¥0</div>
+                </div>
+                <button class="order-btn" id="orderBtn" disabled>去下单</button>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-icon">🎉</div>
+            <h3 class="modal-title">下单成功!</h3>
+            <p class="modal-text">您的咖啡正在准备中，请稍候...</p>
+            <button class="modal-btn" id="modalClose">好的</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const menuData = [
+            {
+                id: 1,
+                name: '拿铁咖啡',
+                desc: '意式浓缩+绵密奶泡',
+                price: 28,
+                icon: '☕',
+                sizes: ['中杯', '大杯']
+            },
+            {
+                id: 2,
+                name: '焦糖玛奇朵',
+                desc: '香甜焦糖+香草风味',
+                price: 32,
+                icon: '🍯',
+                sizes: ['中杯', '大杯']
+            },
+            {
+                id: 3,
+                name: '摩卡咖啡',
+                desc: '巧克力+咖啡的完美融合',
+                price: 30,
+                icon: '🍫',
+                sizes: ['中杯', '大杯']
+            },
+            {
+                id: 4,
+                name: '美式咖啡',
+                desc: '双份浓缩，苦中带香',
+                price: 22,
+                icon: '⚡',
+                sizes: ['小杯', '中杯']
+            },
+            {
+                id: 5,
+                name: '卡布奇诺',
+                desc: '经典意式，奶泡丰富',
+                price: 28,
+                icon: '🥛',
+                sizes: ['中杯', '大杯']
+            },
+            {
+                id: 6,
+                name: '生椰拿铁',
+                desc: '清爽椰乳+浓郁咖啡',
+                price: 29,
+                icon: '🥥',
+                sizes: ['中杯', '大杯']
+            },
+            {
+                id: 7,
+                name: '燕麦拿铁',
+                desc: '健康燕麦奶香',
+                price: 30,
+                icon: '🌾',
+                sizes: ['中杯', '大杯']
+            },
+            {
+                id: 8,
+                name: '柚子茶',
+                desc: '清新柚子果香',
+                price: 24,
+                icon: '🍊',
+                sizes: ['中杯', '大杯']
+            }
+        ];
+
+        let cart = [];
+        let selectedSweetness = '正常糖';
+
+        function init() {
+            renderMenu();
+            setupEventListeners();
+        }
+
+        function renderMenu() {
+            const grid = document.getElementById('coffeeGrid');
+            grid.innerHTML = menuData.map(coffee => `
+                <div class="coffee-card" data-id="${coffee.id}">
+                    <div class="coffee-icon">${coffee.icon}</div>
+                    <div class="coffee-name">${coffee.name}</div>
+                    <div class="coffee-desc">${coffee.desc}</div>
+                    <div class="coffee-price">${coffee.price}</div>
+                    <div class="size-options">
+                        ${coffee.sizes.map((size, i) => `
+                            <button class="size-btn ${i === 0 ? 'active' : ''}" data-size="${size}">${size}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.coffee-card').forEach(card => {
+                card.addEventListener('click', () => toggleSelect(card));
+            });
+        }
+
+        function toggleSelect(card) {
+            const id = parseInt(card.dataset.id);
+            const sizeBtn = card.querySelector('.size-btn.active');
+            const size = sizeBtn ? sizeBtn.dataset.size : '中杯';
+            
+            const existingIndex = cart.findIndex(item => item.id === id);
+            
+            if (existingIndex > -1) {
+                cart.splice(existingIndex, 1);
+                card.classList.remove('selected');
+                showToast('已移除');
+            } else {
+                const coffee = menuData.find(c => c.id === id);
+                cart.push({
+                    id: coffee.id,
+                    name: coffee.name,
+                    price: coffee.price,
+                    size: size,
+                    sweetness: selectedSweetness,
+                    icon: coffee.icon
+                });
+                card.classList.add('selected');
+                showToast(`已添加 ${coffee.name}`);
+            }
+            
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const totalPrice = document.getElementById('totalPrice');
+            const orderBtn = document.getElementById('orderBtn');
+            
+            cartCount.textContent = `${cart.length} 件`;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="cart-empty">点击上方咖啡添加</div>';
+                totalPrice.textContent = '¥0';
+                orderBtn.disabled = true;
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <span class="item-name">${item.icon} ${item.name} (${item.size})</span>
+                        <span class="item-price">¥${item.price}</span>
+                    </div>
+                `).join('');
+                
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                totalPrice.textContent = `¥${total}`;
+                orderBtn.disabled = false;
+            }
+        }
+
+        function setupEventListeners() {
+            document.querySelectorAll('.sweetness-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.sweetness-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    selectedSweetness = btn.dataset.level;
+                    cart.forEach(item => item.sweetness = selectedSweetness);
+                });
+            });
+
+            document.getElementById('orderBtn').addEventListener('click', () => {
+                document.getElementById('modal').classList.add('show');
+            });
+
+            document.getElementById('modalClose').addEventListener('click', () => {
+                document.getElementById('modal').classList.remove('show');
+                cart = [];
+                document.querySelectorAll('.coffee-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                updateCart();
+                showToast('感谢您的点单!');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 1500);
+        }
+
+        init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "created": "2026-06-17",
+  "last_updated": "2026-06-18",
+  "memory": [
+    {
+      "date": "2026-06-18",
+      "skill": "morning-brief",
+      "summary": "晨间简报生成并发送邮件，核心议题：三环集团分红验证。今日最重要的事：验证300408近5年分红记录",
+      "email_sent": true,
+      "tags": [
+        "morning-brief",
+        "2026-06-18"
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "skill": "morning-brief",
+      "summary": "晨间简报生成并发送邮件",
+      "email_sent": true
+    }
+  ]
+}

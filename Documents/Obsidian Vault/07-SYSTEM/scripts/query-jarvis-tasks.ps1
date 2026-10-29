@@ -1,0 +1,1 @@
+Get-ScheduledTask | Where-Object {$_.TaskName -like '*Jarvis*'} | Select-Object TaskName, State

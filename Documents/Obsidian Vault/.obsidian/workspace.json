@@ -1,0 +1,180 @@
+{
+  "main": {
+    "id": "e4d94d20f59fa8fd",
+    "type": "split",
+    "children": [
+      {
+        "id": "cad7f9644beb2cf6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "490e9b9215ed7451",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "新标签页"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "1bfe7eb9df404dc5",
+    "type": "split",
+    "children": [
+      {
+        "id": "a25eb3497ba81491",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fdfdbf11e17fbdb2",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "e9aeb356c2aee3e9",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "2026-02-09-AI智能分析",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "96b88729fb3596f4",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "08509ff479e2c9e5",
+    "type": "split",
+    "children": [
+      {
+        "id": "1259e6a56e1aaead",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "925d7a79290ccfd4",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "爬网页.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": true,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "爬网页 的反向链接列表"
+            }
+          },
+          {
+            "id": "be75a5537d8a8d2a",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "爬网页.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "爬网页 的出链列表"
+            }
+          },
+          {
+            "id": "4c919ad079f014a1",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "2b3ae6dae0ea2343",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": true,
+                "showSearch": true,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大纲"
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "bases:新建数据库": false,
+      "obsidian-git:Open Git source control": false,
+      "copilot:Open Copilot Chat": false,
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "e9aeb356c2aee3e9",
+  "lastOpenFiles": [
+    "Documents → trae_projects → FinaceV1 → Investment-Research.md",
+    "A股策略家/A股策略家/A股策略家.md",
+    "欢迎.md",
+    "关于tailscale的各种使用说明书.md",
+    "爬网页.md",
+    "2025-01-18-pdf-1-TechAI-Goolge-whitepaper_Prompt Engineering_v4-af36dcc7a49bb7269a58b1c9b89a8ae1.pdf",
+    "未命名"
+  ]
+}
